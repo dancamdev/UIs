@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:insta/room_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -77,84 +78,93 @@ class _Room extends StatelessWidget {
       {Key key, this.title, this.users, this.talking, this.image1, this.image2})
       : super(key: key);
 
+  void open(BuildContext context) {
+    showModalBottomSheet(context: context, isScrollControlled: true, builder: (_) {
+      return RoomScreen();
+    },);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.0),
-      child: Container(
-        width: double.infinity,
-        height: 250.0,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16.0),
-          color: Colors.white,
-        ),
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 100.0,
-                  width: 60.0,
-                  child: Stack(
-                    alignment: Alignment.center,
+    return GestureDetector(
+      onTap: () => open(context),
+          child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.0),
+        child: Container(
+          width: double.infinity,
+          height: 250.0,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16.0),
+            color: Colors.white,
+          ),
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 100.0,
+                    width: 60.0,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        FractionalTranslation(
+                          translation: Offset(0.3, 0.3),
+                          child: SizedBox(
+                            width: 50.0,
+                            height: 50.0,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(16.0),
+                              child: Image.asset(image2),
+                            ),
+                          ),
+                        ),
+                        FractionalTranslation(
+                          translation: Offset(-0.1, -0.1),
+                          child: SizedBox(
+                            width: 50.0,
+                            height: 50.0,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(16.0),
+                              child: Image.asset(image1),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 50.0),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      FractionalTranslation(
-                        translation: Offset(0.3, 0.3),
-                        child: SizedBox(
-                          width: 50.0,
-                          height: 50.0,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(16.0),
-                            child: Image.asset(image2),
-                          ),
-                        ),
-                      ),
-                      FractionalTranslation(
-                        translation: Offset(-0.1, -0.1),
-                        child: SizedBox(
-                          width: 50.0,
-                          height: 50.0,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(16.0),
-                            child: Image.asset(image1),
-                          ),
-                        ),
-                      ),
+                      const SizedBox(height: 20.0),
+                      Text("user0 💬",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.w500)),
+                      Text("user2 💬",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.w500)),
+                      Text("user3 💬",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.w500)),
+                      Text("John Doe 💬",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.w500)),
+                      const SizedBox(height: 8.0),
+                      Text("$users / $talking"),
                     ],
                   ),
-                ),
-                const SizedBox(width: 50.0),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 20.0),
-                    Text("user0 💬",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w500)),
-                    Text("user2 💬",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w500)),
-                    Text("user3 💬",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w500)),
-                    Text("John Doe 💬",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w500)),
-                    const SizedBox(height: 8.0),
-                    Text("$users / $talking"),
-                  ],
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
